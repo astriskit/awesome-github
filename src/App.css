@@ -1,0 +1,42 @@
+.banner {
+  background-color: var(--theme-primary-color);
+  font-size: xxx-large;
+  font-weight: bold;
+  margin: 0;
+  padding: 1vw;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.link {
+  text-decoration: none;
+  background-color: var(--theme-primary-color);
+  color: white;
+  font-size: large;
+  border: 5px double white;
+  position: relative;
+  left: 90vw;
+  bottom: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 8px;
+}
+@media (max-width: 786px) {
+  .link {
+    left: 85vw;
+    bottom: -20px;
+  }
+}
+@media (max-width: 595px) {
+  .link {
+    left: 80vw;
+    bottom: 10px;
+  }
+}
+.link:focus,
+.link:hover {
+  box-shadow: whitesmoke 0px 0px 8px 5px;
+  color: rgb(109, 103, 103);
+  border-color: rgb(109, 103, 103);
+}
