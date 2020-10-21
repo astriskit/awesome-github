@@ -1,11 +1,17 @@
 import React from "react";
 import { render as r } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 
-const render = (ui, options) => {
-  return r(ui, { wrapper: MemoryRouter, ...options });
+const render = (Ui, { route = "/", ...options } = {}) => {
+  return r(
+    <MemoryRouter
+      initialEntries={[route]}
+      initialIndex={0}
+      children={Ui}
+    ></MemoryRouter>,
+    options
+  );
 };
 
 describe("<App />", () => {
@@ -26,14 +32,20 @@ describe("<App />", () => {
     expect(getByTestId("app-home")).toBeInTheDocument();
   });
 
-  it("Click on add to go to github-repo-search page", async () => {
+  it("Home: Add button to point to /add-repo page", () => {
     const { getByTestId } = render(<App />);
     const btn = getByTestId("add-repo");
     expect(btn).toBeInTheDocument();
-    userEvent.click(btn);
-    setTimeout(() => {
-      expect(window.location.pathname).toEqual("/add-repo");
-      expect(getByTestId("app-add-repo")).toBeInTheDocument();
-    }, 1000);
+    expect(btn.href).toEqual(expect.stringMatching(/add-repo$/));
+  });
+
+  it("Add-repo: Page exists", () => {
+    const { getByTestId } = render(<App />, { route: "/add-repo" });
+    expect(getByTestId("app-add-repo")).toBeInTheDocument();
+  });
+
+  it("/bad-page lands on 404", () => {
+    const { getByText } = render(<App />, { route: "/bad-page" });
+    expect(getByText(/page not found/i)).toBeInTheDocument();
   });
 });
