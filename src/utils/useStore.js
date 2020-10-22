@@ -24,14 +24,6 @@ export const useStore = (initial = undefined) => {
   });
 
   useEffect(() => {
-    save();
-  }, [store]);
-
-  const clear = () => {
-    setStore([]);
-  };
-
-  const save = () => {
     try {
       const storey = JSON.stringify(store);
       localStorage.setItem(storeName, storey);
@@ -39,6 +31,10 @@ export const useStore = (initial = undefined) => {
       setStore([]);
       logger.error("Possibly invalid JSON; Emptied store!");
     }
+  }, [store]);
+
+  const clear = () => {
+    setStore([]);
   };
 
   // const add = (list) => {

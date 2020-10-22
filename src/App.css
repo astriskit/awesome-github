@@ -56,3 +56,12 @@
 .flex.column {
   flex-direction: column;
 }
+
+.add-repo .repos-list {
+  max-height: 50vh;
+  min-width: 350px;
+}
+
+.add-repo .repos-list li a {
+  font-size: x-large;
+}

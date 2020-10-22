@@ -40,7 +40,7 @@ export const RepoSearch = ({ onFind = () => {}, loading = false }) => {
             onChange={handleSearchOpt}
             checked={searchOp === "by-repo" ? true : false}
           />
-          Repo-name
+          <span>Repo-name</span>
         </label>
         <label>
           <input
@@ -51,7 +51,7 @@ export const RepoSearch = ({ onFind = () => {}, loading = false }) => {
             onChange={handleSearchOpt}
             checked={searchOp === "by-user" ? true : false}
           />
-          Username
+          <span>Username</span>
         </label>
       </div>
       <button
