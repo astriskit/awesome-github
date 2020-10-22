@@ -1,12 +1,12 @@
 import React from "react";
+import { HomeLink } from "../components/HomeLink";
 
-export const Empty = ({ history }) => {
-  const goBack = () => history.goBack();
+export const Empty = () => {
   return (
     <div>
-      <div>Page not found</div>
-      <div role="button" onClick={goBack} className="link">
-        Click to go back
+      <HomeLink />
+      <div className="content" style={{ fontSize: "xx-large" }}>
+        Page not found!
       </div>
     </div>
   );

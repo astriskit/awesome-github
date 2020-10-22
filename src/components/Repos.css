@@ -1,0 +1,18 @@
+.repos-list {
+  margin-left: 20px;
+  max-height: 70vh;
+  overflow: auto;
+  line-height: 2.2rem;
+}
+
+.repos-list li a {
+  text-decoration: none;
+  font-size: x-large;
+  color: grey;
+}
+
+.repos-list li a:hover,
+.repos-list li a:focus {
+  text-decoration: underline;
+  color: var(--theme-primary-color);
+}

@@ -5,11 +5,7 @@ import App from "./App";
 
 const render = (Ui, { route = "/", ...options } = {}) => {
   return r(
-    <MemoryRouter
-      initialEntries={[route]}
-      initialIndex={0}
-      children={Ui}
-    ></MemoryRouter>,
+    <MemoryRouter initialEntries={[route]} initialIndex={0} children={Ui} />,
     options
   );
 };
@@ -37,6 +33,11 @@ describe("<App />", () => {
     const btn = getByTestId("add-repo");
     expect(btn).toBeInTheDocument();
     expect(btn.href).toEqual(expect.stringMatching(/add-repo$/));
+  });
+
+  it("Home: List-container for the added repositories exist", () => {
+    const { getByTestId } = render(<App />);
+    expect(getByTestId("repo-list-container")).toBeInTheDocument();
   });
 
   it("Add-repo: Page exists", () => {
