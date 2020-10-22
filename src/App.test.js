@@ -14,6 +14,25 @@ const render = (Ui, { route = "/", ...options } = {}) => {
   );
 };
 
+const expectEleType = (ele, type) => {
+  expect(ele.tagName.toLowerCase()).toEqual(type);
+};
+
+const expectInput = (ele) => {
+  expect(ele).toBeInTheDocument();
+  expectEleType(ele, "input");
+};
+
+const expectButton = (ele) => {
+  expect(ele).toBeInTheDocument();
+  expectEleType(ele, "button");
+};
+
+const expectRadio = (ele) => {
+  expectInput(ele);
+  expect(ele.getAttribute("type")).toEqual("radio");
+};
+
 describe("<App />", () => {
   const origLS = localStorage;
 
@@ -92,9 +111,17 @@ describe("<App />", () => {
     expect(logger.error).toHaveBeenCalledTimes(1);
   });
 
-  it("Add-repo: Page exists", () => {
+  it("Add-repo: Page exists for searching repos by username or repo-name", () => {
     const { getByTestId } = render(<App />, { route: "/add-repo" });
     expect(getByTestId("app-add-repo")).toBeInTheDocument();
+    const search = getByTestId("search-repo");
+    expectInput(search);
+    const inByUser = getByTestId("search-by-user");
+    expectRadio(inByUser);
+    const inByRepo = getByTestId("search-by-repo");
+    expectRadio(inByRepo);
+    const btn = getByTestId("btn-search");
+    expectButton(btn);
   });
 
   it("/bad-page lands on 404", () => {
