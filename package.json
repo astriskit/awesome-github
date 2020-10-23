@@ -1,0 +1,22 @@
+{
+  "name": "awesome-github",
+  "version": "1.0.0",
+  "description": "https://github.com/astriskit/awesome-github",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astriskit/awesome-github.git"
+  },
+  "author": "astriskit <harry2office@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/astriskit/awesome-github/issues"
+  },
+  "homepage": "https://github.com/astriskit/awesome-github#readme",
+  "dependencies": {
+    "serve": "^11.3.2"
+  }
+}
