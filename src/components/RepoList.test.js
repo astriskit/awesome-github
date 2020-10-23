@@ -19,9 +19,7 @@ describe("<RepoList />", () => {
     const { getByText } = render(<RepoList />, {
       store: { items: [testRepo, testRepoWithoutName] },
     });
-    const item = getByText(testRepo.name);
-    expect(item.getAttribute("title")).toEqual(testRepo.title);
-    expect(item.getAttribute("href")).toEqual(testRepo.href);
+    expect(getByText(testRepo.name)).toBeInTheDocument();
     expect(getByText(testRepoWithoutName.title)).toBeInTheDocument();
   });
 });

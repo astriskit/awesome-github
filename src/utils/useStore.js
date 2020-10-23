@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { logger } from "../utils/logger";
-const storeName = "bookmarks";
+import { storeKey as storeName } from "../utils/constants";
 
 export const useStore = (initial = undefined) => {
   const [store = [], setStore] = useState(() => {
@@ -33,16 +33,17 @@ export const useStore = (initial = undefined) => {
     }
   }, [store]);
 
-  const clear = () => {
-    setStore([]);
+  const removeItem = (href) => {
+    const list = store.filter(({ href: h }) => h !== href);
+    setStore(list);
   };
-
-  // const add = (list) => {
-  //   setStore(list);
-  // };
 
   const addItem = (ob) => {
     setStore([...store, ob]);
+  };
+
+  const hasItem = (href) => {
+    return store.find(({ href: h }) => href === h);
   };
 
   return {
@@ -50,6 +51,7 @@ export const useStore = (initial = undefined) => {
     get items() {
       return [...store];
     },
-    clear,
+    removeItem,
+    hasItem,
   };
 };

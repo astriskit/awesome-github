@@ -27,16 +27,6 @@
   margin-right: 10px;
 }
 
-.search-repo-container button {
-  min-width: 5rem;
-  padding: 5px;
-}
-.search-repo-container button:hover,
-.search-repo-container button:focus {
-  color: var(--theme-primary-color);
-  border-color: var(--theme-primary-color);
-}
-
 .search-repo-container > :last-child {
   margin-bottom: 20px;
 }

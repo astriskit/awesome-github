@@ -22,4 +22,9 @@ describe("<Repos />", () => {
       expect(line.getAttribute("class")).toEqual(cls);
     }
   });
+
+  it("works fine without iterator", () => {
+    const { getByText } = render(<Repos repos={repos} />);
+    expect(getByText(repos[0].name)).toBeInTheDocument();
+  });
 });

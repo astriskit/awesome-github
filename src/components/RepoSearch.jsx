@@ -58,6 +58,10 @@ export const RepoSearch = ({ onFind = () => {}, loading = false }) => {
         data-testid="btn-search"
         disabled={loading}
         onClick={handleSearch}
+        className="secondary"
+        style={{
+          minWidth: "5rem",
+        }}
       >
         Find
       </button>

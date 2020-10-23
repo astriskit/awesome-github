@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { render as r, screen, act } from "@testing-library/react";
+import React from "react";
+import { render as r, screen, waitForElement } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import { repos } from "./mock-utils/repos";
 import { logger } from "./utils/logger";
 import App from "./App";
-import { ghSearchUrl } from "./utils/constants";
+import { ghSearchUrl, storeKey } from "./utils/constants";
 
 jest.mock("./utils/logger");
 jest.mock("axios");
@@ -99,7 +99,7 @@ describe("<App /> (1)", () => {
     localStorage.getItem = jest.fn(() => JSON.stringify(repos));
     const { getByTestId, getByText } = render(<App />);
     expect(localStorage.getItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.getItem).toHaveBeenCalledWith("bookmarks");
+    expect(localStorage.getItem).toHaveBeenCalledWith(storeKey);
     const ul = getByTestId("repos-list");
     expect(ul.childElementCount).toEqual(repos.length);
     expect(getByText(repos[0].name)).toBeInTheDocument();
@@ -111,9 +111,9 @@ describe("<App /> (1)", () => {
     logger.error = jest.fn();
     const { getByText } = render(<App />);
     expect(localStorage.getItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.getItem).toHaveBeenCalledWith("bookmarks");
+    expect(localStorage.getItem).toHaveBeenCalledWith(storeKey);
     expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.removeItem).toHaveBeenCalledWith("bookmarks");
+    expect(localStorage.removeItem).toHaveBeenCalledWith(storeKey);
     expect(getByText(/no repositories found/i)).toBeInTheDocument();
     expect(logger.error).toHaveBeenCalledTimes(1);
   });
@@ -214,8 +214,28 @@ describe("<App /> (1)", () => {
 });
 
 describe("<App /> (2): ", () => {
-  it(" /add-repo : click to add an item", async () => {
+  beforeEach(() => {
     localStorage.clear();
+  });
+
+  it(" / : click to remove an item", async () => {
+    localStorage.setItem(storeKey, JSON.stringify(repos));
+
+    render(<App />);
+
+    expect(screen.getByTestId("repos-list").children).toHaveLength(
+      repos.length
+    );
+
+    const removeBtn = screen.getAllByText("-")[0];
+    userEvent.click(removeBtn);
+
+    const list = await screen.findByTestId("repos-list");
+    expect(list.children).toHaveLength(repos.length - 1);
+    expect(screen.queryByText(repos[0].name)).not.toBeInTheDocument();
+  });
+
+  it(" /add-repo : click to add and remove item", async () => {
     const userQuery = "xyz";
 
     render(<App />, { route: "/add-repo" });
@@ -236,11 +256,17 @@ describe("<App /> (2): ", () => {
 
     await screen.findByTestId("repos-list"); // list repos
 
-    const addBtn = screen.getAllByText("+")[0];
-    expect(addBtn).toBeInTheDocument();
+    const btns = screen.getAllByText("+");
+
+    const addBtn = btns[0];
 
     userEvent.click(addBtn); // click to add
-    expect(addBtn).not.toBeInTheDocument();
+    waitForElement(() => expect(addBtn.innerText).toEqual("-"));
+
+    userEvent.click(addBtn); // click to remove
+    waitForElement(() => expect(addBtn.innerText).toEqual("+"));
+
+    userEvent.click(addBtn); //click to add
 
     const home = screen.getByTestId("list-repos"); // go to home
     userEvent.click(home);
@@ -250,7 +276,5 @@ describe("<App /> (2): ", () => {
     expect(window.location.pathname).toEqual("/");
     expect(ul.childElementCount).toEqual(1);
     expect(screen.getByText(repos[0].name)).toBeInTheDocument();
-
-    localStorage.clear();
   });
 });
