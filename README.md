@@ -7,7 +7,7 @@ This is made as a part of an interview; The application allows for a user to boo
 ## How to run locally?
 
 - Clone the repo,
-- Go to the directory and run `yarn install` using commandline. Ensure `yarn` is installed before this;
+- Go to the directory and run `yarn install` using commandline. Ensure `yarn` is installed before this and you are in branch `master`;
 - Run `yarn start` to run the server;
 - Go to `localhost:3000` on web-browser to access the app.
 
