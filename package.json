@@ -1,5 +1,6 @@
 {
   "name": "awesome-github",
+  "homepage": "https://github.com/astriskit/awesome-github/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +16,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-prod": "PUBLIC_URL='https://astriskit.github.io/awesome-github' react-scripts build && mv build docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "coverage": "yarn test --coverage --watch-all"
