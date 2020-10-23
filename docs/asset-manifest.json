@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/astriskit/awesome-github/static/css/main.0093c084.chunk.css",
+    "main.js": "/astriskit/awesome-github/static/js/main.5c124985.chunk.js",
+    "main.js.map": "/astriskit/awesome-github/static/js/main.5c124985.chunk.js.map",
+    "runtime-main.js": "/astriskit/awesome-github/static/js/runtime-main.e8610558.js",
+    "runtime-main.js.map": "/astriskit/awesome-github/static/js/runtime-main.e8610558.js.map",
+    "static/js/2.996d7d10.chunk.js": "/astriskit/awesome-github/static/js/2.996d7d10.chunk.js",
+    "static/js/2.996d7d10.chunk.js.map": "/astriskit/awesome-github/static/js/2.996d7d10.chunk.js.map",
+    "index.html": "/astriskit/awesome-github/index.html",
+    "precache-manifest.ae85429ef5075114b11bfebf48422de5.js": "/astriskit/awesome-github/precache-manifest.ae85429ef5075114b11bfebf48422de5.js",
+    "service-worker.js": "/astriskit/awesome-github/service-worker.js",
+    "static/css/main.0093c084.chunk.css.map": "/astriskit/awesome-github/static/css/main.0093c084.chunk.css.map",
+    "static/js/2.996d7d10.chunk.js.LICENSE.txt": "/astriskit/awesome-github/static/js/2.996d7d10.chunk.js.LICENSE.txt",
+    "static/media/spinner.gif": "/astriskit/awesome-github/static/media/spinner.5134db46.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e8610558.js",
+    "static/js/2.996d7d10.chunk.js",
+    "static/css/main.0093c084.chunk.css",
+    "static/js/main.5c124985.chunk.js"
+  ]
+}
