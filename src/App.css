@@ -60,6 +60,7 @@
 .add-repo .repos-list {
   max-height: 50vh;
   min-width: 350px;
+  padding-right: 10px;
 }
 
 .add-repo .repos-list li a {

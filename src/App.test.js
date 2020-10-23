@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { render as r, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
@@ -41,7 +41,7 @@ const opts = {
   headers: { Accept: "application/vnd.github.v3+json" },
 };
 
-describe("<App />", () => {
+describe("<App /> (1)", () => {
   const origLS = localStorage;
 
   beforeEach(() => {
@@ -57,7 +57,6 @@ describe("<App />", () => {
 
   afterEach(() => {
     localStorage = origLS;
-    localStorage.clear();
   });
 
   it("Renders app without crashing", () => {
@@ -211,5 +210,47 @@ describe("<App />", () => {
   it(" /bad-page : lands on 404", () => {
     const { getByText } = render(<App />, { route: "/bad-page" });
     expect(getByText(/page not found/i)).toBeInTheDocument();
+  });
+});
+
+describe("<App /> (2): ", () => {
+  it(" /add-repo : click to add an item", async () => {
+    localStorage.clear();
+    const userQuery = "xyz";
+
+    render(<App />, { route: "/add-repo" });
+
+    const search = screen.getByTestId("search-repo");
+    userEvent.type(search, userQuery); // type-in query
+
+    const byUser = screen.getByTestId("search-by-user");
+    userEvent.click(byUser); // select by-user
+
+    const btn = screen.getByTestId("btn-search"); // search
+    axios.get = jest.fn().mockResolvedValue({
+      data: {
+        items: repos.map(({ name, href }) => ({ html_url: href, name })),
+      },
+    });
+    userEvent.click(btn);
+
+    await screen.findByTestId("repos-list"); // list repos
+
+    const addBtn = screen.getAllByText("+")[0];
+    expect(addBtn).toBeInTheDocument();
+
+    userEvent.click(addBtn); // click to add
+    expect(addBtn).not.toBeInTheDocument();
+
+    const home = screen.getByTestId("list-repos"); // go to home
+    userEvent.click(home);
+
+    const ul = await screen.findByTestId("repos-list"); //find repo container
+
+    expect(window.location.pathname).toEqual("/");
+    expect(ul.childElementCount).toEqual(1);
+    expect(screen.getByText(repos[0].name)).toBeInTheDocument();
+
+    localStorage.clear();
   });
 });
