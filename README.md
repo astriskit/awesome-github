@@ -2,7 +2,7 @@
 
 This is made as a part of an interview; The application allows for a user to bookmark number of github-repositories locally; It allows that by searching for github repositories using repo-name/query or user on github.
 
-## Lives [here](https://astriskit.github.io/awesome-github)
+## Lives [here](https://awesome-github.herokuapp.com)
 
 ## How to run locally?
 
